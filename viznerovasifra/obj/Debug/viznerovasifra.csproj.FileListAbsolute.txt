@@ -1,0 +1,11 @@
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\bin\Debug\viznerovasifra.exe.config
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\bin\Debug\viznerovasifra.exe
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\bin\Debug\viznerovasifra.pdb
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.AssemblyReference.cache
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.SuggestedBindingRedirects.cache
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.Form1.resources
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.Properties.Resources.resources
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.GenerateResource.cache
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.CoreCompileInputs.cache
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.exe
+D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.pdb
