@@ -49,8 +49,8 @@
             this.About = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Contact = new System.Windows.Forms.ToolStripButton();
-            this.github = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.github = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -262,6 +262,11 @@
             this.Contact.Text = "Kontakt";
             this.Contact.Click += new System.EventHandler(this.Contact_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // github
             // 
             this.github.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -271,11 +276,6 @@
             this.github.Size = new System.Drawing.Size(47, 22);
             this.github.Text = "Github";
             this.github.Click += new System.EventHandler(this.github_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // Form1
             // 
@@ -297,6 +297,7 @@
             this.Controls.Add(this.CipherText);
             this.Controls.Add(this.PlainText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

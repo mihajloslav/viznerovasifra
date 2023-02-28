@@ -9,3 +9,14 @@ D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifr
 D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.CoreCompileInputs.cache
 D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.exe
 D:\InformacioneTehnologije\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.pdb
+D:\viznerovasifra\viznerovasifra\bin\Debug\viznerovasifra.exe.config
+D:\viznerovasifra\viznerovasifra\bin\Debug\viznerovasifra.exe
+D:\viznerovasifra\viznerovasifra\bin\Debug\viznerovasifra.pdb
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.AssemblyReference.cache
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.SuggestedBindingRedirects.cache
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.Form1.resources
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.Properties.Resources.resources
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.GenerateResource.cache
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.csproj.CoreCompileInputs.cache
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.exe
+D:\viznerovasifra\viznerovasifra\obj\Debug\viznerovasifra.pdb

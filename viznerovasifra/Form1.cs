@@ -8,77 +8,118 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace viznerovasifra
 {
     public partial class Form1 : Form
     {
-        private const string DefaultAlphabet = "abcdefghijklmnopqrstuvwxyz"; // defaultni alfabet 
-        //private const string Utf8Alphabet2 = "abcdefghijklmnopqrstuvwxyzćčšđž"; // alfabet sa UTF-8 slovima
-        private const string Utf8Alphabet = "abcčćdđefghijklmnopqrsštuvzž"; // alfabet sa UTF-8 slovima
-        private const string CyrillicAlphabet = "абвгдђежзијклљмнњопрстћуфхцчшџ"; // ćirilični alfabet 
+        private string[] engAlphabet = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+        private string[] srpskaLatinicaAlphabet = { "a", "b", "c", "č", "ć", "d", "dž", "đ", "e", "f", "g", "h", "i", "j", "k", "l", "lj", "m", "n", "nj", "o", "p", "r", "s", "š", "t", "u", "v", "z", "ž" };
+        private string[] srpskaCirilicaAlphabet = { "а", "б", "в", "г", "д", "ђ", "е", "ж", "з", "и", "ј", "к", "л", "љ", "м", "н", "њ", "о", "п", "р", "с", "т", "ћ", "у", "ф", "х", "ц", "ч", "џ", "ш" };
         bool language = true; //true cirilica, false latinica
+        bool radi = false;
         public Form1()
         {
             InitializeComponent();
         }
-        private string VigenereEncrypt(string text, string key, string alphabet)
+        private string VigenereEncrypt(string text, string key, string[] alphabet)
         {
-            StringBuilder encryptedText = new StringBuilder();
-            int alphabetLength = alphabet.Length;
-            int keyIndex = 0;
+            bool radi = true;
             foreach (char c in text)
             {
-                int alphabetIndex = alphabet.IndexOf(Char.ToLower(c));
-                if (alphabetIndex != -1)
+                if (!Char.IsWhiteSpace(c))
                 {
-                    char keyChar = Char.ToLower(key[keyIndex % key.Length]);
-                    int keyIndexInAlphabet = alphabet.IndexOf(keyChar);
-                    int encryptedIndex = (alphabetIndex + keyIndexInAlphabet) % alphabetLength;
-                    char encryptedChar = alphabet[encryptedIndex];
-                    encryptedText.Append(Char.IsUpper(c) ? Char.ToUpper(encryptedChar) : encryptedChar);
-                    keyIndex++;
+                    string s = c.ToString().ToLower();
+                    if (!alphabet.Contains(s))
+                    {
+                        radi = false;
+                        PlainText.Text = "";
+                        if(language){ MessageBox.Show("Користите погрешан алфабет за Отворени текст!"); return ""; }
+                        else{ MessageBox.Show("Koristite pogrešan alfabet za Otvoreni tekst!"); return ""; }
+                    }
                 }
-                else encryptedText.Append(c);
+                
             }
-
-            return encryptedText.ToString();
-        }
-        private string VigenereDecrypt(string encryptedText, string key, string alphabet)
-        {
-            StringBuilder decryptedText = new StringBuilder();
-            int alphabetLength = alphabet.Length;
-            int keyIndex = 0;
-            foreach (char c in encryptedText)
+            foreach (char c in key)
             {
-                int alphabetIndex = alphabet.IndexOf(Char.ToLower(c));
-                if (alphabetIndex != -1)
+                if (!Char.IsWhiteSpace(c))
                 {
-                    char keyChar = Char.ToLower(key[keyIndex % key.Length]);
-                    int keyIndexInAlphabet = alphabet.IndexOf(keyChar);
-                    int decryptedIndex = (alphabetIndex - keyIndexInAlphabet + alphabetLength) % alphabetLength;
-                    char decryptedChar = alphabet[decryptedIndex];
-                    decryptedText.Append(Char.IsUpper(c) ? Char.ToUpper(decryptedChar) : decryptedChar);
-                    keyIndex++;
-                }
-                else decryptedText.Append(c);
+                    string s = c.ToString().ToLower();
+                    if (!alphabet.Contains(s))
+                    {
+                        radi = false;
+                        KeyText.Text = "";
+                        if (language){ MessageBox.Show("Користите погрешан алфабет за КЉУЧ!"); return ""; }
+                        else{ MessageBox.Show("Koristite pogrešan alfabet za KLJUČ!"); return ""; }
+                    }
+                }    
             }
+            string encryptedText = "";
+            if (radi)
+            {
+                int alphabetLength = alphabet.Length;
+                int keyIndex = 0;
+                for (int i = 0; i < text.Length; i++)
+                {
+                    char plainChar = text[i];
+                    if (!Char.IsLetter(plainChar))
+                    {
+                        encryptedText += plainChar;
+                        continue;
+                    }
 
-            return decryptedText.ToString();
+                    char keyChar = key[keyIndex];
+
+                    int plainCharIndex = Array.IndexOf(alphabet, plainChar.ToString());
+                    int keyCharIndex = Array.IndexOf(alphabet, keyChar.ToString());
+                    int encryptedCharIndex = (plainCharIndex + keyCharIndex) % alphabetLength;
+                    encryptedText += alphabet[encryptedCharIndex];
+                    keyIndex = (keyIndex + 1) % key.Length;
+                }
+            }
+            return encryptedText;
         }
-        private string GetSelectedAlphabet()
+        private string VigenereDecrypt(string encryptedText, string key, string[] alphabet)
         {
-            if (EnglishAlphabet.Checked) return DefaultAlphabet;
-            else if (SerbianLatin.Checked) return Utf8Alphabet;
-            else return CyrillicAlphabet;
+            string plainText = "";
+            if (radi)
+            {
+                int alphabetLength = alphabet.Length;
+
+                int keyIndex = 0;
+                for (int i = 0; i < encryptedText.Length; i++)
+                {
+                    char encryptedChar = encryptedText[i];
+                    if (!Char.IsLetter(encryptedChar))
+                    {
+                        plainText += encryptedChar;
+                        continue;
+                    }
+
+                    char keyChar = key[keyIndex];
+                    int encryptedCharIndex = Array.IndexOf(alphabet, encryptedChar.ToString());
+                    int keyCharIndex = Array.IndexOf(alphabet, keyChar.ToString());
+                    int plainCharIndex = (encryptedCharIndex - keyCharIndex + alphabetLength) % alphabetLength;
+                    plainText += alphabet[plainCharIndex];
+                    keyIndex = (keyIndex + 1) % key.Length;
+                }
+            }
+            return plainText.ToString();
+        }
+        private string[] GetSelectedAlphabet()
+        {
+            if (EnglishAlphabet.Checked) return engAlphabet;
+            else if (SerbianLatin.Checked) return srpskaLatinicaAlphabet;
+            else return srpskaCirilicaAlphabet;
         }
         private void BtnEncrypt_Click(object sender, EventArgs e)
         {
             if (PlainText.Text != "" && KeyText.Text != "")
             {
-                string text = PlainText.Text;
-                string key = KeyText.Text;
-                string alphabet = GetSelectedAlphabet();
+                string text = PlainText.Text.ToLower();
+                string key = KeyText.Text.ToLower();
+                string[] alphabet = GetSelectedAlphabet();
                 string encryptedText = VigenereEncrypt(text, key, alphabet);
                 CipherText.Text = encryptedText;
             }
@@ -87,9 +128,9 @@ namespace viznerovasifra
         {
             if (CipherText.Text != "" && KeyText.Text != "")
             {
-                string text = CipherText.Text;
-                string key = KeyText.Text;
-                string alphabet = GetSelectedAlphabet();
+                string text = CipherText.Text.ToLower();
+                string key = KeyText.Text.ToLower();
+                string[] alphabet = GetSelectedAlphabet();
                 string decryptedText = VigenereDecrypt(text, key, alphabet);
                 PlainText2.Text = decryptedText;
             }
@@ -112,11 +153,6 @@ namespace viznerovasifra
             CipherText.Text = "";
             PlainText2.Text = "";
             KeyText.Text = "";
-            /*if (autocrypt.Checked)
-            {
-                BtnEncrypt_Click(sender, e);
-                BtnDecrypt_Click(sender, e);
-            }*/
         }
 
         private void KeyText_TextChanged(object sender, EventArgs e)
@@ -187,11 +223,11 @@ namespace viznerovasifra
             DialogResult dialogResult;
             if (language)
             {
-                dialogResult = MessageBox.Show("Верзија 0.0.1\n***Апликацију су направили:\nМихајло Ранђеловић и Александар Недељковић\n***Контакт: onlymihajlo@gmail.com\nТехничка школа Смедерево 4-1\n***Најновију верзију и изворни код можете скинути на:\nhttps://github.com/mikikupus/viznerovasifra", "Контакт", MessageBoxButtons.OK);
+                dialogResult = MessageBox.Show("Верзија 0.0.2\n***Апликацију су направили:\nМихајло Ранђеловић и Александар Недељковић\n***Контакт: onlymihajlo@gmail.com\nТехничка школа Смедерево 4-1\n***Најновију верзију и изворни код можете скинути на:\nhttps://github.com/mikikupus/viznerovasifra", "Контакт", MessageBoxButtons.OK);
             }
             else
             {
-                dialogResult = MessageBox.Show("Verzija 0.0.1\n***Aplikaciju su napravili:\nMihajlo Ranđelović i Aleksandar Nedeljković\n***Kontakt: onlymihajlo@gmail.com\nTehnička škola Smederevo 4-1\n***Najnoviju verziju i izvorni kod možete skinuti na:\nhttps://github.com/mikikupus/viznerovasifra", "Kontakt", MessageBoxButtons.OKCancel);
+                dialogResult = MessageBox.Show("Verzija 0.0.2\n***Aplikaciju su napravili:\nMihajlo Ranđelović i Aleksandar Nedeljković\n***Kontakt: onlymihajlo@gmail.com\nTehnička škola Smederevo 4-1\n***Najnoviju verziju i izvorni kod možete skinuti na:\nhttps://github.com/mikikupus/viznerovasifra", "Kontakt", MessageBoxButtons.OKCancel);
             }
         }
 
