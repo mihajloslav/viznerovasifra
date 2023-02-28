@@ -25,7 +25,7 @@ namespace viznerovasifra
         }
         private string VigenereEncrypt(string text, string key, string[] alphabet)
         {
-            bool radi = true;
+            radi = true;
             foreach (char c in text)
             {
                 if (!Char.IsWhiteSpace(c))
@@ -35,6 +35,7 @@ namespace viznerovasifra
                     {
                         radi = false;
                         PlainText.Text = "";
+                        PlainText2.Text = "";
                         if(language){ MessageBox.Show("Користите погрешан алфабет за Отворени текст!"); return ""; }
                         else{ MessageBox.Show("Koristite pogrešan alfabet za Otvoreni tekst!"); return ""; }
                     }
@@ -50,6 +51,7 @@ namespace viznerovasifra
                     {
                         radi = false;
                         KeyText.Text = "";
+                        PlainText2.Text = "";
                         if (language){ MessageBox.Show("Користите погрешан алфабет за КЉУЧ!"); return ""; }
                         else{ MessageBox.Show("Koristite pogrešan alfabet za KLJUČ!"); return ""; }
                     }
