@@ -19,6 +19,7 @@ namespace viznerovasifra
         private string[] srpskaCirilicaAlphabet = { "а", "б", "в", "г", "д", "ђ", "е", "ж", "з", "и", "ј", "к", "л", "љ", "м", "н", "њ", "о", "п", "р", "с", "т", "ћ", "у", "ф", "х", "ц", "ч", "џ", "ш" };
         bool language = true; //true cirilica, false latinica
         bool radi = false;
+
         public Form1()
         {
             InitializeComponent();
